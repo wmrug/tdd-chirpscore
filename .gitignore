@@ -1,0 +1,7 @@
+.DS_Store
+.bundle
+.env
+.test.env
+db/*.db
+tags
+tmp/*
