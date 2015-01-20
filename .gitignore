@@ -5,3 +5,4 @@
 db/*.db
 tags
 tmp/*
+.idea
