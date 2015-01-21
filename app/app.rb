@@ -8,10 +8,11 @@ Dotenv.load(
 require "sinatra/base"
 
 class Chirpscore < Sinatra::Base
-  get "/hello" do
-    "Hello Chirpscore!"
+  get '/' do
+    str = <<EOS
+<input type=text name=handle /><input type=submit value='go go go!!!!' />
+EOS
   end
-
   # start the server if ruby file executed directly
   run! if app_file == $0
 end
