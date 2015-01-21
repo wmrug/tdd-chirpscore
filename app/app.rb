@@ -22,13 +22,17 @@ EOS
   end
 
   post '/result' do
-    tweets = client.user_timeline(params[:handle])
+    if params[:handle].include? " "
+      results = "invalid handle"
+    else
+      tweets = client.user_timeline(params[:handle])
 
-    analyzer = Sentimental.new
+      analyzer = Sentimental.new
 
-    results = tweets.inject(0) { |a, e| a + analyzer.get_score(e.text) }
-    results /= tweets.length
-    results = sprintf("%0.02f", results * 10)
+      results = tweets.inject(0) { |a, e| a + analyzer.get_score(e.text) }
+      results /= tweets.length
+      results = sprintf("%0.02f", results * 10)
+    end
     <<EOS
     <html>
         <body>
