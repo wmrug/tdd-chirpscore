@@ -22,11 +22,20 @@ EOS
   end
 
   post '/result' do
-    tweets = client.user_timeline(params[:handle])[0..4]
+    tweets = client.user_timeline(params[:handle])
 
     analyzer = Sentimental.new
 
-    tweets.inject(0) { |a, e| a + analyzer.get_score(e.text) } * 2
+    results = tweets.inject(0) { |a, e| a + analyzer.get_score(e.text) }
+    results /= tweets.length
+    results = sprintf("%0.02f", results * 10)
+    <<EOS
+    <html>
+        <body>
+        #{results}
+        </body>
+    </html>
+EOS
   end
 
   def client

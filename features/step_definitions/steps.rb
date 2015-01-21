@@ -5,5 +5,5 @@ When(/^I specify a valid twitter handle$/) do
 end
 
 Then(/^I will see the correct value$/) do
-  expect(page).to have_content('2.27')
+  expect(page).to have_content('2.29')
 end
