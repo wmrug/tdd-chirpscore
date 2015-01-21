@@ -3,6 +3,7 @@
 .env
 .test.env
 db/*.db
+project.vim
 tags
 tmp/*
 .idea
