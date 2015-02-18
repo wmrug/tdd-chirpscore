@@ -22,21 +22,10 @@ EOS
   end
 
   post '/result' do
-    if params[:handle].include? " "
-      results = "invalid handle"
-    else
-      tweets = client.user_timeline(params[:handle])
-
-      analyzer = Sentimental.new
-
-      results = tweets.inject(0) { |a, e| a + analyzer.get_score(e.text) }
-      results /= tweets.length
-      results = sprintf("%0.02f", results * 10)
-    end
     <<EOS
     <html>
         <body>
-        #{results}
+        #{ChirpscoreCalculator.calculate(params[:handle])}
         </body>
     </html>
 EOS
@@ -53,4 +42,21 @@ EOS
 
   # start the server if ruby file executed directly
   run! if app_file == $0
+end
+
+class ChirpscoreCalculator
+  def self.calculate(handle)
+    if handle.include? " "
+      results = "invalid handle"
+    else
+      tweets = client.user_timeline(handle)
+    end
+
+    analyzer = Sentimental.new
+
+    results = tweets.inject(0) { |a, e| a + analyzer.get_score(e.text) }
+    results /= tweets.length
+    results = sprintf("%0.02f", results * 10)
+    results
+  end
 end
