@@ -2,10 +2,10 @@ Feature: I want to know what my chirpscore is
 
   Scenario: Happy Path!
     When I specify "@limeblast"
-    Then I will see 2.29
+    Then I will see 2.26
 
     When I specify "limeblast"
-    Then I will see 2.29
+    Then I will see 2.26
 
   Scenario: Sad Path :(
     When I specify "limeb last"

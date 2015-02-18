@@ -1,7 +1,9 @@
-When(/^I specify "(.*?)"$/) do |handle|  
-  visit '/'
-  fill_in 'handle', with: handle
-  click_button 'go go go!!!!'
+When(/^I specify "(.*?)"$/) do |handle|
+  VCR.use_cassette("#{handle}-twitter") do
+    visit '/'
+    fill_in 'handle', with: handle
+    click_button 'go go go!!!!'
+  end
 end
 
 Then(/^I will see (\d+\.\d+)$/) do |expected_chirpscore|
